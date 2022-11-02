@@ -111,6 +111,16 @@ func main() {
 	printSlice(s, "s")
 	fmt.Printf("a=%v\n", a)
 
+	slice := []int{1, 2, 3, 4, 5}
+	slice1 := slice[1:3]
+	printSlice(slice1, "slice1")//name=slice1 值的类型=[]int len=2 cap=4 带0x的指针=0xc0000a4018 不带0x的指针=c0000a4018 输出结构体=[2 3]
+
+	slice1 = append(slice1, 10)
+	printSlice(slice1, "slice1")//name=slice1 值的类型=[]int len=3 cap=4 带0x的指针=0xc0000a4060 不带0x的指针=c0000a4060 输出结构体=[2 3 10]
+
+	printSlice(slice, "slice")//name=slice 值的类型=[]int len=5 cap=5 带0x的指针=0xc0000a40a8 不带0x的指针=c0000a40a8 输出结构体=[1 2 3 10 5]
+
+
 }
 //其实%p输出切片地址，很容易搞错，不同切片可能都一样，你得切片变量前面➕&才行，不然切片可能指向同一个内存中的数组，导致地址看起来是一样的
 func printSlice(s []int, name string) {

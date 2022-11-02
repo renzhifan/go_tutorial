@@ -77,18 +77,19 @@ func main() {
 	s := []int{1, 2}
 	s = append(s, 3)
 	//fmt.Printf("%+v\n", s) //[1 2 3]
-	printSlice(s, "s")
+	//printSlice(s, "s")
 
 	m["key"] = s
 	s = append(s[:1], s[2:]...)
 	//fmt.Printf("%+v\n", s) //[1 3]
-	printSlice(s, "s")
+	//printSlice(s, "s")
 
 	//fmt.Printf("%+v\n", m["key"]) //[1 3 3]
-	printSlice(m["key"], "m[\"key\"]")
+	//printSlice(m["key"], "m[\"key\"]")
 	//append() 函数并不会改变原来的切片，而是会生成一个容量更大的切片，然后把原有的元素和新元素一并拷贝到新切片中。
 
 }
+
 //其实%p输出切片地址，很容易搞错，不同切片可能都一样，你得切片变量前面➕&才行，不然切片可能指向同一个内存中的数组，导致地址看起来是一样的
 func printSlice(s []int, name string) {
 	fmt.Printf("name=%s 值的类型=%T len=%d cap=%d 带0x的指针=%p 不带0x的指针=%#p 输出结构体=%v\n", name, s, len(s), cap(s), &s, &s, s)
