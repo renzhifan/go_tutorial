@@ -71,19 +71,24 @@ func main() {
 	//printSlice(slice2, "slice2")
 
 	//思考题
+	//[append() 函数并不会改变原来的切片，而是会生成一个容量更大的切片，然后把原有的元素和新元素一并拷贝到新切片中。]
 	type Map map[string][]int
 	m := make(Map)
 	s := []int{1, 2}
 	s = append(s, 3)
-	fmt.Printf("%+v\n", s) //[1 2 3]
+	//fmt.Printf("%+v\n", s) //[1 2 3]
+	printSlice(s, "s")
 
 	m["key"] = s
 	s = append(s[:1], s[2:]...)
-	fmt.Printf("%+v\n", s) //[1 3]
+	//fmt.Printf("%+v\n", s) //[1 3]
+	printSlice(s, "s")
 
-	fmt.Printf("%+v\n", m["key"]) //[1 3 3]
+	//fmt.Printf("%+v\n", m["key"]) //[1 3 3]
+	printSlice(m["key"], "m[\"key\"]")
+	//append() 函数并不会改变原来的切片，而是会生成一个容量更大的切片，然后把原有的元素和新元素一并拷贝到新切片中。
 
 }
 func printSlice(s []int, name string) {
-	fmt.Printf("name=%s 值的类型=%T len=%d cap=%d 带0x的指针=%p 不带0x的指针=%#p 输出结构体=%v\n", name, s, len(s), cap(s), s, s, s)
+	fmt.Printf("name=%s 值的类型=%T len=%d cap=%d 带0x的指针=%p 不带0x的指针=%#p 输出结构体=%v\n", name, s, len(s), cap(s), &s, &s, s)
 }
