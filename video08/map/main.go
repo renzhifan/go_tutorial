@@ -70,16 +70,18 @@ func main() {
 	//printSlice(slice1, "slice1")
 	//printSlice(slice2, "slice2")
 
-
 	//思考题
 	type Map map[string][]int
 	m := make(Map)
 	s := []int{1, 2}
 	s = append(s, 3)
+	fmt.Printf("%+v\n", s) //[1 2 3]
+
 	m["key"] = s
 	s = append(s[:1], s[2:]...)
+	fmt.Printf("%+v\n", s) //[1 3]
 
-	printSlice(m["key"], "m[\"key\"]") //name=m["key"] 值的类型=[]int len=3 cap=4 带0x的指针=0xc00001e080 不带0x的指针=c00001e080 输出结构体=[1 3 3]
+	fmt.Printf("%+v\n", m["key"]) //[1 3 3]
 
 }
 func printSlice(s []int, name string) {
