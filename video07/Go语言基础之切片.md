@@ -331,7 +331,7 @@ func main() {
 }
 ```
 >总结一下就是：要从切片a中删除索引为index的元素，操作方法是a = append(a[:index], a[index+1:]...)
-
+![17-33-53-HKk0Vr-4mkRlx](https://raw.githubusercontent.com/renzhifan/upic_img/master/uPic/2022/11/02/17-33-53-HKk0Vr-4mkRlx.jpg)
 ## 练习题
 1.请写出下面代码的输出结果。
 ```go
