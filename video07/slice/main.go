@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func main() {
@@ -97,6 +96,34 @@ func main() {
 	//a = append(a[:2], a[3:]...)//>总结一下就是：要从切片a中删除索引为index的元素，操作方法是a = append(a[:index], a[index+1:]...)
 	//fmt.Println(a) //[30 31 33 34 35 36 37]
 
+	//数据共享问题
+	//slice1 := []int{1, 2, 3, 4, 5}
+
+	//slice2 := slice1[1:3]
+	//fmt.Println("slice2:", slice2) //slice2: [2 3]
+	//
+	//slice2[1] = 6
+	//fmt.Println("slice2:", slice2) //slice2: [2 6]
+	//
+	//fmt.Println("slice1:", slice1) //slice1: [1 2 6 4 5]
+	//可以看到，slice2 是基于 slice1 创建的，它们的数组指针指向了同一个数组，因此，修改 slice2 元素会同步到 slice1，因为修改的是同一份内存数据，这就是数据共享问题。
+
+	//解决数据共享问题
+	//slice1 := []int{1, 2, 3, 4, 5}
+	//slice2 := slice1[1:3]
+	//fmt.Println("slice2:", slice2) //slice2: [2 3]
+	//
+	//slice1 = append(slice1, 0)
+	//fmt.Println("slice1:", slice1) //slice1: [1 2 3 4 5 0]
+	//
+	//slice1[0] = 2
+	//slice2[0] = 6
+	//fmt.Println("slice1:", slice1) //slice1: [2 2 3 4 5 0]
+	//
+	//fmt.Println("slice2:", slice2) //slice2: [6 3]
+
+	//可以看到，虽然 slice2 是基于 slice1 创建的，但是修改 slice2 不会再同步到 slice1，因为 append 函数会重新分配新的内存，然后将结果赋值给 slice1，这样一来，slice2 会和老的 slice1 共享同一个底层数组内存，不再和新的 slice1 共享内存，也就不存在数据共享问题了
+
 	//练习题
 	//var a = make([]string, 5, 10)
 	//for i := 0; i < 10; i++ {
@@ -104,13 +131,13 @@ func main() {
 	//}
 	//printSlice(a, "a") //name=a 值的类型=[]string len=15 cap=20 带0x的指针=0xc00010a000 不带0x的指针=c00010a000 输出结构体=[     0 1 2 3 4 5 6 7 8 9]
 
-	var a = [...]int{3, 7, 8, 9, 1}
-	var s []int
-	s = a[0:5]
-	sort.Ints(s)
-	printSlice(s, "s")
-	fmt.Printf("a=%v\n", a)
-
+	//var a = [...]int{3, 7, 8, 9, 1}
+	//var s []int
+	//s = a[0:5]
+	//sort.Ints(s)
+	//printSlice(s, "s")
+	//fmt.Printf("a=%v\n", a)
+	//
 	slice := []int{1, 2, 3, 4, 5}
 	slice1 := slice[1:3]
 	printSlice(slice1, "slice1")//name=slice1 值的类型=[]int len=2 cap=4 带0x的指针=0xc0000a4018 不带0x的指针=c0000a4018 输出结构体=[2 3]
@@ -120,8 +147,8 @@ func main() {
 
 	printSlice(slice, "slice")//name=slice 值的类型=[]int len=5 cap=5 带0x的指针=0xc0000a40a8 不带0x的指针=c0000a40a8 输出结构体=[1 2 3 10 5]
 
-
 }
+
 //其实%p输出切片地址，很容易搞错，不同切片可能都一样，你得切片变量前面➕&才行，不然切片可能指向同一个内存中的数组，导致地址看起来是一样的
 func printSlice(s []int, name string) {
 	fmt.Printf("name=%s 值的类型=%T len=%d cap=%d 带0x的指针=%p 不带0x的指针=%#p 输出结构体=%v\n", name, s, len(s), cap(s), &s, &s, s)
