@@ -123,6 +123,7 @@ func main() {
 	//fmt.Println("slice2:", slice2) //slice2: [6 3]
 
 	//可以看到，虽然 slice2 是基于 slice1 创建的，但是修改 slice2 不会再同步到 slice1，因为 append 函数会重新分配新的内存，然后将结果赋值给 slice1，这样一来，slice2 会和老的 slice1 共享同一个底层数组内存，不再和新的 slice1 共享内存，也就不存在数据共享问题了
+	//需要注意的是 append() 函数并不会改变原来的切片，而是会生成一个容量更大的切片，然后把原有的元素和新元素一并拷贝到新切片中
 
 	//练习题
 	//var a = make([]string, 5, 10)
@@ -140,12 +141,12 @@ func main() {
 	//
 	slice := []int{1, 2, 3, 4, 5}
 	slice1 := slice[1:3]
-	printSlice(slice1, "slice1")//name=slice1 值的类型=[]int len=2 cap=4 带0x的指针=0xc0000a4018 不带0x的指针=c0000a4018 输出结构体=[2 3]
+	printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=2 cap=4 带0x的指针=0xc0000a4018 不带0x的指针=c0000a4018 输出结构体=[2 3]
 
 	slice1 = append(slice1, 10)
-	printSlice(slice1, "slice1")//name=slice1 值的类型=[]int len=3 cap=4 带0x的指针=0xc0000a4060 不带0x的指针=c0000a4060 输出结构体=[2 3 10]
+	printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=3 cap=4 带0x的指针=0xc0000a4060 不带0x的指针=c0000a4060 输出结构体=[2 3 10]
 
-	printSlice(slice, "slice")//name=slice 值的类型=[]int len=5 cap=5 带0x的指针=0xc0000a40a8 不带0x的指针=c0000a40a8 输出结构体=[1 2 3 10 5]
+	printSlice(slice, "slice") //name=slice 值的类型=[]int len=5 cap=5 带0x的指针=0xc0000a40a8 不带0x的指针=c0000a40a8 输出结构体=[1 2 3 10 5]
 
 }
 
