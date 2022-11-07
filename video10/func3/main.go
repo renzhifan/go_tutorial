@@ -36,7 +36,34 @@ func calc(base int) (func(int) int, func(int) int) {
 	return add, sub
 }
 
+func adder() func(int) int {
+	var x int
+	return func(y int) int {
+		x += y
+		return x
+	}
+}
 func main() {
+	var f = adder()
+	fmt.Println(f(10)) //10
+	fmt.Println(f(10)) //10
+	fmt.Println(f(20)) //30
+	fmt.Println(f(30)) //60
+
+	f1 := adder()
+	fmt.Println(f1(40)) //40
+	fmt.Println(f1(50)) //90
+	// 将匿名函数保存到变量
+	add := func(x, y int) {
+		fmt.Println(x + y)
+	}
+	add(10, 20) // 通过变量调用匿名函数
+
+	//自执行函数：匿名函数定义完加()直接执行
+	func(x, y int) {
+		fmt.Println(x + y)
+	}(10, 20)
+
 	//闭包 = 函数 + 外层变量的引用
 	x, y := calc(100)
 	ret1 := x(200) //base = 100 + 200

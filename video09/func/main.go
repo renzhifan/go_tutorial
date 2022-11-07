@@ -60,5 +60,6 @@ func calc(a, b int) (sum, sub int) {
 func main() {
 	//函数调用
 	x, y := calc(100, 200)
-	fmt.Println(x, y)
+	fmt.Println(x, y) //300 -100
+
 }

@@ -11,7 +11,7 @@ func b() {
 	defer func() {
 		err := recover()
 		if err != nil {
-			fmt.Println("func b error")
+			fmt.Println(err)
 		}
 	}()
 	panic("panic in b")
