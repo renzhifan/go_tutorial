@@ -43,31 +43,42 @@ func adder() func(int) int {
 		return x
 	}
 }
+func deferAdd(a, b int) func() int {
+	return func() int {
+		return a + b
+	}
+}
+
 func main() {
+	// 此时返回的是匿名函数
+	//addFunc := deferAdd(1, 2)
+	// 这里才会真正执行加法操作
+	//fmt.Println(addFunc())
+
 	var f = adder()
 	fmt.Println(f(10)) //10
-	fmt.Println(f(10)) //10
-	fmt.Println(f(20)) //30
-	fmt.Println(f(30)) //60
+	fmt.Println(f(10)) //20
+	fmt.Println(f(20)) //40
+	fmt.Println(f(30)) //70
 
-	f1 := adder()
-	fmt.Println(f1(40)) //40
-	fmt.Println(f1(50)) //90
+	//f1 := adder()
+	//fmt.Println(f1(40)) //40
+	//fmt.Println(f1(50)) //90
 	// 将匿名函数保存到变量
-	add := func(x, y int) {
-		fmt.Println(x + y)
-	}
-	add(10, 20) // 通过变量调用匿名函数
+	//add := func(x, y int) {
+	//	fmt.Println(x + y)
+	//}
+	//add(10, 20) // 通过变量调用匿名函数
 
 	//自执行函数：匿名函数定义完加()直接执行
-	func(x, y int) {
-		fmt.Println(x + y)
-	}(10, 20)
+	//func(x, y int) {
+	//	fmt.Println(x + y)
+	//}(10, 20)
 
 	//闭包 = 函数 + 外层变量的引用
-	x, y := calc(100)
-	ret1 := x(200) //base = 100 + 200
-	fmt.Println(ret1)
-	ret2 := y(200) //base = 300 - 200
-	fmt.Println(ret2)
+	//x, y := calc(100)
+	//ret1 := x(200) //base = 100 + 200
+	//fmt.Println(ret1)
+	//ret2 := y(200) //base = 300 - 200
+	//fmt.Println(ret2)
 }
