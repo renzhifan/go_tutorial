@@ -16,8 +16,9 @@ type NewInt = int
 
 func main() {
 	var i MyInt
-	fmt.Printf("type:%T value:%v\n", i, i)
+	fmt.Printf("type:%T value:%v\n", i, i) //type:main.MyInt value:0
 
 	var x NewInt
-	fmt.Printf("type:%T value:%v\n", x, x)
+	fmt.Printf("type:%T value:%v\n", x, x) //type:int value:0
+
 }

@@ -35,6 +35,8 @@ func main() {
 	a := 1
 	modify1(a)
 	fmt.Println(a) // 1
-	modify2(&a)
-	fmt.Println(a)
+	modify2(&a)    //y.type=*int y=0xc00001c098 y=1
+
+	fmt.Println(a) //100
+
 }
