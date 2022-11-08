@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// time demo
+
 
 func main() {
 	now := time.Now() // 时间对象

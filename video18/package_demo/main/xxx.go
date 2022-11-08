@@ -1,7 +1,7 @@
 package main
 
 import (
-	nazha "code/video18/package_demo/calc" // 给导入的包起别名
+	//nazha "code/video18/package_demo/calc" // 给导入的包起别名
 	"fmt"
 )
 
@@ -19,7 +19,7 @@ func init() {
 
 func main() {
 	fmt.Println("hello")
-	ret := nazha.Add(10, 20)
-	fmt.Println(ret)
-	fmt.Println(nazha.Name)
+	//ret := nazha.Add(10, 20)
+	//fmt.Println(ret)
+	//fmt.Println(nazha.Name)
 }

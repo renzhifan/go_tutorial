@@ -15,9 +15,8 @@ func hello(i int) {
 
 func main() { // 开启一个主goroutine去执行main函数
 
-	wg.Add(10000) // 计数牌+1
-	for i := 0; i < 10000; i++ {
-		//wg.Add(1)
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
 		go hello(i) // 开启了一个goroutine去执行hello这个函数
 	}
 	fmt.Println("hello main")
