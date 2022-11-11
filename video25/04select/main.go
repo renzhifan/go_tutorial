@@ -2,18 +2,13 @@ package main
 
 import "fmt"
 
-//select
-
-
 func main() {
-	ch := make(chan int, 10)
-	for i:=0;i<10;i++{
+	ch := make(chan int, 1)
+	for i := 1; i <= 10; i++ {
 		select {
-			case x := <-ch:
-				fmt.Println(x)
-				case ch <-i:
-		default:
-			fmt.Println("啥都不干")
+		case x := <-ch:
+			fmt.Println(x)
+		case ch <- i:
 		}
 	}
 }

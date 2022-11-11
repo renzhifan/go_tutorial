@@ -1,8 +1,9 @@
 package calc
 
 import (
-	"code/video18/package_demo/snow"
+	//"code/video18/package_demo/snow"
 	"fmt"
+	//"github.com/renzhifan/go_tutorial/video18/package_demo/snow"
 )
 
 // 标识符首字母大写表示对外可见。
@@ -13,7 +14,7 @@ var Name = "沙河小王子"
 
 // Add 是一个计算两个int类型数据和的函数
 func Add(x, y int) int {
-	snow.Snow()
+	//snow.Snow()
 	Sub(x, y) //同一个包中的不同文件可以直接调用
 	return x + y
 }
