@@ -31,10 +31,23 @@ func main() {
 	// 	}
 	// }
 	// 6. continue 继续下一次循环
+	// for i := 0; i < 5; i++ {
+	// 	if i == 3 {
+	// 		continue//跳过本次for循环，继续下一次循环
+	// 	}
+	// 	fmt.Println(i)
+	// }
+	continueDemo()
+}
+func continueDemo() {
+forloop1:
 	for i := 0; i < 5; i++ {
-		if i == 3 {
-			continue//跳过本次for循环，继续下一次循环
+		// forloop2:
+		for j := 0; j < 5; j++ {
+			if i == 2 && j == 2 {
+				continue forloop1
+			}
+			fmt.Printf("%v-%v\n", i, j)
 		}
-		fmt.Println(i)
 	}
 }
