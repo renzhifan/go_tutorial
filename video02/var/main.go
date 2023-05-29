@@ -5,7 +5,7 @@ import "fmt"
 var x = 100
 var y = "小王子"
 
-//变量
+// 变量
 func main() {
 	//标准声明格式
 	var name string
