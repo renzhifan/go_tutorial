@@ -54,12 +54,12 @@ func main() {
 	//printSlice(s6, "s6") //name=s6 值的类型=[]int len=0 cap=0 带0x的指针=0x116de80 不带0x的指针=116de80 输出结构体=[]
 
 	//切片的赋值拷贝
-	//s7 := make([]int, 3) //[0 0 0]
-	//s8 := s7             //将s7直接赋值给s8，s7和s8共用一个底层数组
-	//s8[0] = 100
-	//printSlice(s7, "s7") //name=s7 值的类型=[]int len=3 cap=3 带0x的指针=0xc0000160a8 不带0x的指针=c0000160a8 输出结构体=[100 0 0]
-	//
-	//printSlice(s8, "s8") //name=s8 值的类型=[]int len=3 cap=3 带0x的指针=0xc0000160a8 不带0x的指针=c0000160a8 输出结构体=[100 0 0]
+	s7 := make([]int, 3) //[0 0 0]
+	s8 := s7             //将s7直接赋值给s8，s7和s8共用一个底层数组
+	s8[0] = 100
+	printSlice(s7, "s7") //name=s7 值的类型=[]int len=3 cap=3 带0x的指针=0xc0000160a8 不带0x的指针=c0000160a8 输出结构体=[100 0 0]
+
+	printSlice(s8, "s8") //name=s8 值的类型=[]int len=3 cap=3 带0x的指针=0xc0000160a8 不带0x的指针=c0000160a8 输出结构体=[100 0 0]
 
 	//append()方法为切片添加元素
 	//var s9 []int
@@ -97,30 +97,34 @@ func main() {
 	//fmt.Println(a) //[30 31 33 34 35 36 37]
 
 	//数据共享问题
-	//slice1 := []int{1, 2, 3, 4, 5}
+	// slice1 := []int{0, 1, 2, 3, 4, 5}
 
-	//slice2 := slice1[1:3]
-	//fmt.Println("slice2:", slice2) //slice2: [2 3]
-	//
-	//slice2[1] = 6
-	//fmt.Println("slice2:", slice2) //slice2: [2 6]
-	//
-	//fmt.Println("slice1:", slice1) //slice1: [1 2 6 4 5]
+	// slice2 := slice1[1:3]
+	// printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=6 cap=6 带0x的指针=0xc000010030 不带0x的指针=c000010030 输出结构体=[0 1 2 3 4 5]
+	// printSlice(slice2, "slice2") //name=slice2 值的类型=[]int len=2 cap=5 带0x的指针=0xc000010078 不带0x的指针=c000010078 输出结构体=[1 2]
+
+	// slice2[1] = 6
+	// printSlice(slice2, "slice2") //name=slice2 值的类型=[]int len=2 cap=5 带0x的指针=0xc0000a00a8 不带0x的指针=c0000a00a8 输出结构体=[1 6]
+
+	// printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=6 cap=6 带0x的指针=0xc0000a00f0 不带0x的指针=c0000a00f0 输出结构体=[0 1 6 3 4 5]
 	//可以看到，slice2 是基于 slice1 创建的，它们的数组指针指向了同一个数组，因此，修改 slice2 元素会同步到 slice1，因为修改的是同一份内存数据，这就是数据共享问题。
 
 	//解决数据共享问题
-	//slice1 := []int{1, 2, 3, 4, 5}
-	//slice2 := slice1[1:3]
-	//fmt.Println("slice2:", slice2) //slice2: [2 3]
-	//
-	//slice1 = append(slice1, 0)
-	//fmt.Println("slice1:", slice1) //slice1: [1 2 3 4 5 0]
-	//
-	//slice1[0] = 2
-	//slice2[0] = 6
-	//fmt.Println("slice1:", slice1) //slice1: [2 2 3 4 5 0]
-	//
-	//fmt.Println("slice2:", slice2) //slice2: [6 3]
+	// slice1 := []int{0, 1, 2, 3, 4, 5}
+	// slice2 := slice1[1:3]
+	// printSlice(slice2, "slice2") //name=slice2 值的类型=[]int len=2 cap=5 带0x的指针=0xc0000a0018 不带0x的指针=c0000a0018 输出结构体=[1 2]
+
+	// slice1[1] = 200
+
+	// printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=7 cap=12 带0x的指针=0xc000010078 不带0x的指针=c000010078 输出结构体=[0 1 2 3 4 5 0]
+	// printSlice(slice2, "slice2") //name=slice2 值的类型=[]int len=2 cap=5 带0x的指针=0xc0000100c0 不带0x的指针=c0000100c0 输出结构体=[200 2]
+	// slice1 = append(slice1, 0)   //此时slice1会进行扩容 cap=oldcap*2  及 6*2=12
+	// printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=7 cap=12 带0x的指针=0xc0000a20f0 不带0x的指针=c0000a20f0 输出结构体=[0 200 2 3 4 5 0]
+	// printSlice(slice2, "slice2") //name=slice2 值的类型=[]int len=2 cap=5 带0x的指针=0xc0000a2138 不带0x的指针=c0000a2138 输出结构体=[200 2]
+	// slice1[1] = 1000
+	// slice2[1] = 6000
+	// printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=7 cap=12 带0x的指针=0xc000010198 不带0x的指针=c000010198 输出结构体=[0 1000 2 3 4 5 0]
+	// printSlice(slice2, "slice2") //name=slice2 值的类型=[]int len=2 cap=5 带0x的指针=0xc0000101e0 不带0x的指针=c0000101e0 输出结构体=[200 6000]
 
 	//可以看到，虽然 slice2 是基于 slice1 创建的，但是修改 slice2 不会再同步到 slice1，因为 append 函数会重新分配新的内存，然后将结果赋值给 slice1，这样一来，slice2 会和老的 slice1 共享同一个底层数组内存，不再和新的 slice1 共享内存，也就不存在数据共享问题了
 	//需要注意的是 append() 函数并不会改变原来的切片，而是会生成一个容量更大的切片，然后把原有的元素和新元素一并拷贝到新切片中
@@ -139,14 +143,14 @@ func main() {
 	//printSlice(s, "s")
 	//fmt.Printf("a=%v\n", a)
 	//
-	slice := []int{1, 2, 3, 4, 5}
-	slice1 := slice[1:3]
-	printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=2 cap=4 带0x的指针=0xc0000a4018 不带0x的指针=c0000a4018 输出结构体=[2 3]
+	// slice := []int{0, 1, 2, 3, 4, 5}
+	// slice1 := slice[1:3]
+	// printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=2 cap=4 带0x的指针=0xc0000a4018 不带0x的指针=c0000a4018 输出结构体=[1 2]
 
-	slice1 = append(slice1, 10)
-	printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=3 cap=4 带0x的指针=0xc0000a4060 不带0x的指针=c0000a4060 输出结构体=[2 3 10]
+	// slice1 = append(slice1, 10)
+	// printSlice(slice1, "slice1") //name=slice1 值的类型=[]int len=3 cap=4 带0x的指针=0xc0000a4060 不带0x的指针=c0000a4060 输出结构体=[1 2 10]
 
-	printSlice(slice, "slice") //name=slice 值的类型=[]int len=5 cap=5 带0x的指针=0xc0000a40a8 不带0x的指针=c0000a40a8 输出结构体=[1 2 3 10 5]
+	// printSlice(slice, "slice") //name=slice 值的类型=[]int len=5 cap=5 带0x的指针=0xc0000a40a8 不带0x的指针=c0000a40a8 输出结构体=[0 1 2 10 4 5]
 
 }
 

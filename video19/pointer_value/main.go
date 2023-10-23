@@ -38,16 +38,17 @@ func (p *person) say() {
 }
 
 func main() {
-	var m mover // 定义一个mover类型的变量
-	//p1 := person{ // p1是person类型的值
-	//	name: "小王子",
-	//	age:  18,
-	//}
+	var m mover   // 定义一个mover类型的变量
+	p1 := person{ // p1是person类型的值
+		name: "小王子",
+		age:  18,
+	}
+	m = &p1        //m = p1 // ? 无法赋值，因为p1是person类型的值没有实现mover接口 所以需要加’&‘符号
 	p2 := &person{ // p2是person类型的指针
 		name: "娜扎",
 		age:  18,
 	}
-	//m = p1 // ? 无法赋值，因为p1是person类型的值没有实现mover接口
+
 	m = p2
 	m.move()
 	fmt.Println(m)
