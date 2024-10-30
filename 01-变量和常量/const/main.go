@@ -12,9 +12,9 @@ import "fmt"
 // )
 
 // const (
-// 	n1 = 10
-// 	n2
-// 	n3
+// 	n1 = 10 //10
+// 	n2    //10
+// 	n3    //10
 // )
 
 const (
@@ -36,9 +36,9 @@ const (
 )
 
 const (
-	a, b = iota + 1, iota + 2//iota=0, 1,2
-	c, d = iota+1,iota+2//iota=1,2,3
-	e, f//iota=2,3,4
+	a, b = iota + 1, iota + 2 //iota=0, 1,2
+	c, d = iota + 1, iota + 2 //iota=1,2,3
+	e, f                      //iota=2,3,4
 )
 
 func main() {
